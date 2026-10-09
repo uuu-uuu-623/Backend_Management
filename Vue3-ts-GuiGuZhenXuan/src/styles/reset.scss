@@ -1,0 +1,231 @@
+// =============================================
+// _reset.scss
+// 基于 SCSS 的浏览器默认样式清除（适配 Element Plus 暗黑模式）
+// =============================================
+
+// ---------- 可覆盖的全局变量 ----------
+$font-family-base:
+  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !default;
+$font-size-base: 16px !default;
+$line-height-base: 1.5 !default;
+
+// ---------- 通用 Mixin ----------
+@mixin box-sizing($type: border-box) {
+  box-sizing: $type;
+}
+
+// ---------- 占位符（仅用于继承，不直接输出） ----------
+%reset-spacing {
+  margin: 0;
+  padding: 0;
+}
+
+%reset-list {
+  list-style: none;
+}
+
+%reset-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+// ============= 核心重置 =============
+
+// 1. 统一盒模型为 border-box
+*,
+*::before,
+*::after {
+  @include box-sizing(border-box);
+}
+
+// 2. 移除所有主要元素的内外边距
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  @extend %reset-spacing;
+}
+
+// 3. HTML5 块级元素正确显示
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+// 4. 基础字体、行高、背景色（✅ 使用 EP 变量适配暗黑模式）
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: var(--el-text-color-primary, #333);
+  background-color: var(--el-bg-color, #fff);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+// 5. 列表去除项目符号
+ol,
+ul {
+  @extend %reset-list;
+}
+
+// 6. 链接去除下划线，继承颜色
+a {
+  @extend %reset-link;
+}
+
+// 7. 图片自适应容器，避免底部空隙
+img,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// 8. 表格边框合并
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+// 9. 表单元素继承字体
+input,
+button,
+textarea,
+select,
+optgroup {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+// 10. 按钮重置（去除默认边框/背景/内边距）
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+// 11. 去除引用样式
+blockquote,
+q {
+  quotes: none;
+
+  &::before,
+  &::after {
+    content: '';
+    content: none;
+  }
+}
+
+// 12. 统一 sub/sup 位置，防止行高影响
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+// 13. 清除 HTML5 hidden 属性
+[hidden] {
+  display: none !important;
+}

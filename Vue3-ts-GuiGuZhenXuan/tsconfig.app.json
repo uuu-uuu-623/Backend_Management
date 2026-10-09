@@ -1,0 +1,38 @@
+{
+  // 继承 Vue 官方推荐的 TypeScript 基础配置
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    // 开启增量编译，提升大型项目的构建速度
+    "composite": true,
+    // 指定 TS 编译信息的缓存位置，避免污染项目根目录
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    // ==================== 路径别名配置 ====================
+    // 解决在 .ts / .vue 文件中使用 @/ 符号时，TS 报“找不到模块”的问题
+    // "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    // ==================== 全局类型声明 ====================
+    // 如果你使用了 Element Plus，或者 unplugin-auto-import 等插件，需要在这里引入它们的类型声明
+    // 如果没有使用相关插件，可以删除对应项
+    "types": [
+      // "element-plus/global",
+      // "./components.d.ts"
+      "vite/client"
+    ]
+  },
+  // ==================== 包含的文件范围 ====================
+  // 确保所有源码文件和生成的类型声明都被 TS 编译器识别（解决 ESLint projectService 报错的核心）
+  "include": [
+    "src/**/*.ts", // src 下所有的 ts 文件 (如 main.ts, router/index.ts)
+    "src/**/*.vue", // src 下所有的 vue 单文件组件 (如 App.vue)
+    "src/**/*.d.ts"
+  ],
+  // ==================== 排除的文件范围 ====================
+  "exclude": [
+    "node_modules", // 忽略依赖包
+    "dist", // 忽略打包输出目录
+  ]
+}

@@ -1,0 +1,68 @@
+// =============================================
+// variables.scss
+// 全局变量 & 滚动条样式（适配 Element Plus 暗黑模式）
+// =============================================
+
+// ---------- 1. 布局相关变量（纯尺寸，无需改动） ----------
+$header-height: 60px;
+$footer-height: 50px;
+$aside-width: 20%;
+$AfterFoldAside-width: 64px;
+
+// ⚠️ 删除了原来的 $header-bg-color / $content-bg-color / $aside-bg-color
+// 改为在下方直接使用 EP CSS 变量，避免硬编码
+
+// ---------- 2. 滚动条变量（适配暗黑模式） ----------
+$scrollbar-size: 8px;
+$scrollbar-radius: 4px;
+$scrollbar-gap: 2px;
+$scrollbar-track-bg: transparent;
+
+// ✅ 滚动条颜色改用 CSS 变量，fallback 为浅色值
+$scrollbar-color: var(--el-text-color-placeholder, rgba(0, 0, 0, 0.15));
+$scrollbar-hover-color: var(--el-text-color-secondary, rgba(0, 0, 0, 0.3));
+
+/* ======================= */
+/* 现代风格滚动条美化        */
+/* ======================= */
+
+// Webkit 内核 (Chrome, Safari, Edge)
+::-webkit-scrollbar {
+  width: $scrollbar-size;
+  height: $scrollbar-size;
+}
+
+::-webkit-scrollbar-track {
+  background: $scrollbar-track-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $scrollbar-color;
+  border-radius: $scrollbar-radius;
+  border: $scrollbar-gap solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: $scrollbar-hover-color;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+// Firefox 标准化控制
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar-color $scrollbar-track-bg;
+}
+
+// 在 variables.scss 底部补充
+:root {
+  --aside-bg-color: #00152b;
+}
+
+html.dark {
+  --aside-bg-color: var(--el-bg-color-overlay); // 暗黑模式下跟随 EP
+}
